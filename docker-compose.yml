@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  # SERVIÇO 1: O Banco de Dados
+  banco-postgres:
+    image: postgres:16 # Usa a imagem oficial do Postgres
+    container_name: meu-postgres-docker
+    environment:
+      POSTGRES_DB: estudos_java      # Cria o banco automaticamente
+      POSTGRES_USER: postgres        # Usuário
+      POSTGRES_PASSWORD: senha123    # Senha (pode ser simples, é ambiente fechado)
+    ports:
+      - "5432:5432" # Abre a porta pra gente poder espiar pelo DBeaver
+    volumes:
+      - dados-do-banco:/var/lib/postgresql/data # Garante que os dados não somem se desligar o container
+
+  # SERVIÇO 2: A Tua API
+  minha-api:
+    build: . # Constrói usando o Dockerfile que está nesta pasta
+    container_name: minha-api-java
+    ports:
+      - "8080:8080" # Liga a porta 8080 do container na 8080 do teu PC
+    depends_on:
+      - banco-postgres # Espera o banco ligar antes de tentar subir a API
+    environment:
+      # AQUI ESTÁ O SEGREDO:
+      # Em vez de 'localhost', usamos o NOME DO SERVIÇO ('banco-postgres')
+      SPRING_DATASOURCE_URL: jdbc:postgresql://banco-postgres:5432/estudos_java
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: senha123
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update # Cria as tabelas sozinho
+
+volumes:
+  dados-do-banco: # Cria um "HD externo" virtual pro banco
