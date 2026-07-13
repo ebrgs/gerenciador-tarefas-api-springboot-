@@ -1,78 +1,42 @@
-# 🚀 Gerenciador de Tarefas API
+# Gerenciador de Tarefas API (Spring Boot) ⚙️
 
-Uma API RESTful robusta para gerenciamento de tarefas, desenvolvida seguindo as melhores práticas de mercado e arquitetura em camadas.
+API REST completa para gerenciamento de tarefas, desenvolvida utilizando as melhores práticas do ecossistema Spring.
 
-Este projeto demonstra a construção de um Backend profissional utilizando o ecossistema **Spring Boot 3** e banco de dados **PostgreSQL**, focando em qualidade de código, validações e documentação.
+## 🚀 Tecnologias Utilizadas
 
-## 🛠️ Tecnologias Utilizadas
+- **Linguagem:** Java 21
+- **Framework:** Spring Boot 3.3.5
+- **Banco de Dados:** PostgreSQL (Spring Data JPA)
+- **Segurança & Validação:** Spring Boot Validation.
+- **Documentação:** Springdoc OpenAPI (Swagger UI).
+- **Outras Ferramentas:** Lombok, Docker (Compose).
 
-* **Java 17/21** - Linguagem base.
-* **Spring Boot 3.3.5** - Framework principal.
-* **Spring Data JPA** - Camada de persistência e ORM.
-* **PostgreSQL** - Banco de dados relacional.
-* **Bean Validation** - Validação de dados de entrada (`@Valid`, `@NotBlank`).
-* **SpringDoc OpenAPI (Swagger)** - Documentação automática da API.
-* **Maven** - Gerenciamento de dependências.
+## ✨ Funcionalidades
 
-## 🏗️ Arquitetura e Padrões
+- Gerenciamento completo de tarefas (CRUD).
+- Endpoints totalmente documentados interativamente via Swagger.
+- Integração fácil e rápida com bancos de dados relacionais via JPA/Hibernate.
+- Fácil deploy em contêineres utilizando Docker Compose.
 
-O projeto foi estruturado utilizando **Layered Architecture** (Arquitetura em Camadas) para garantir a separação de responsabilidades:
+## 🛠️ Como Executar o Projeto
 
-* **Controller Layer:** Responsável apenas por receber as requisições HTTP e devolver as respostas (REST).
-* **Service Layer:** Contém as **Regras de Negócio** (ex: não permitir deletar tarefas concluídas).
-* **Repository Layer:** Interface de comunicação com o Banco de Dados.
-* **DTOs & Exception Handlers:** Tratamento global de erros para devolver respostas JSON amigáveis ao cliente.
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/ebrgs/gerenciador-tarefas-api-springboot-.git
+   ```
+2. Suba o banco de dados via Docker (se configurado no `docker-compose.yml`):
+   ```bash
+   docker-compose up -d
+   ```
+3. Execute o projeto localmente com o Maven Wrapper:
+   ```bash
+   ./mvnw spring-boot:run
+   ```
+   *(No Windows, utilize `mvnw.cmd spring-boot:run`)*
+4. Acesse a documentação da API em:
+   ```
+   http://localhost:8080/swagger-ui.html
+   ```
 
-## ⚙️ Como Rodar o Projeto
-
-### Pré-requisitos
-* Java JDK 17 ou superior instalado.
-* Maven instalado.
-* PostgreSQL rodando na porta 5432.
-
-### 1. Configuração do Banco de Dados
-Crie um banco de dados no PostgreSQL chamado `estudos_java`:
-
-```sql
-CREATE DATABASE estudos_java;
-
-Verifique o arquivo `src/main/resources/application.properties` e ajuste seu usuário/senha se necessário:
-
-```properties
-spring.datasource.username=postgres
-spring.datasource.password=sua_senha_aqui
-```
-
-### 1. Executando a aplicação
-No terminal dentro da pasta do projeto:
-
-```
-Bash
-
-mvn spring-boot:run
-```
-Ou execute a classe ``` GerenciadorTarefasApiApplication``` pela sua IDE (IntelliJ/Eclipse)
-
-📚 Documentação (Swagger UI)
-
-Com a aplicação rodando, acesse a documentação interativa para testar os endpoints:
-
-👉 http://localhost:8080/swagger-ui/index.html
-
-### Rotas
-
-```GET,/tarefas,Lista todas as tarefas cadastradas.```
-```POST,/tarefas,Cria uma nova tarefa (Requer JSON).```
-```PUT,/tarefas/{id},Atualiza uma tarefa existente.```
-```DELETE,/tarefas/{id},Remove uma tarefa (Possui validação de negócio). ```
-
-```
-JSON
-
-{
-  "descricao": "Estudar Spring Boot e AWS",
-  "concluida": false
-}
-```
-
-Desenvolvido como parte de estudos avançados em Engenharia de Software.
+## 📄 Licença
+Desenvolvido por Elias (ebrgs).
